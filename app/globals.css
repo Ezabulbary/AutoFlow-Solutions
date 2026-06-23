@@ -1,28 +1,28 @@
 :root {
-  --violet: #6C47FF;
-  --violet-light: #EDE9FF;
-  --violet-mid: #A48EFF;
-  --violet-dark: #5535DD;
-  --cyan: #00C9C8;
-  --cyan-light: #DFFAFA;
+  --violet: #0065CD; /* Brand Primary Blue */
+  --violet-light: #EDF5FD; /* Light blue tint */
+  --violet-mid: #4D97E2; /* Mid blue */
+  --violet-dark: #0050A3; /* Darker blue */
+  --cyan: #00C3CB; /* Brand Secondary Cyan */
+  --cyan-light: #E6FCFD; /* Light cyan tint */
   --amber: #FF9900;
   --amber-light: #FFF3DC;
   --rose: #FF4D6D;
   --rose-light: #FFE8ED;
   --green: #22C55E;
   --green-light: #DCFCE7;
-  --bg: #F7F5FF;
+  --bg: #F5F9FD; /* Adjusted bg to match new blue branding */
   --bg-white: #FFFFFF;
-  --text: #0D0A1E;
-  --text-muted: #6B6880;
-  --text-faint: #A09CB8;
-  --border: #E4E1F5;
+  --text: #0D1424; /* Adjusted text to deep blue-black */
+  --text-muted: #566480; /* Adjusted to blue-gray */
+  --text-faint: #90A0C0; /* Adjusted to light blue-gray */
+  --border: #D5E2F0; /* Adjusted border to soft blue-gray */
   --radius: 14px;
   --radius-sm: 8px;
   --radius-xl: 24px;
-  --shadow: 0 4px 24px rgba(108,71,255,0.10);
-  --shadow-md: 0 8px 32px rgba(108,71,255,0.15);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+  --shadow: 0 4px 24px rgba(0, 101, 205, 0.06);
+  --shadow-md: 0 8px 32px rgba(0, 101, 205, 0.10);
+  --shadow-lg: 0 20px 60px rgba(13, 20, 36, 0.12);
 }
 
 *, *::before, *::after {

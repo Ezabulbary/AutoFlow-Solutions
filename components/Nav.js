@@ -33,9 +33,7 @@ export default function Nav() {
       <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
         <a href="#" className={styles.logo} onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
           <div className={styles.logoIcon}>
-            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
-              <path d="M13 3L4 14h8l-1 7 9-11h-8l1-7z"/>
-            </svg>
+            <img src="/AutoFlow Brand/autoflow-mark-white.svg" alt="AutoFlow Logo" width="20" height="20" />
           </div>
           <span className={styles.logoText}>Auto<span>Flow</span></span>
         </a>

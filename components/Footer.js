@@ -18,7 +18,10 @@ export default function Footer() {
       <div className={styles.inner}>
         <div className={styles.top}>
           <div className={styles.brand}>
-            <div className={styles.logoText}>Auto<span>Flow</span> Solutions</div>
+            <div className={styles.logoWrapper}>
+              <img src="/AutoFlow Brand/autoflow-mark-white.svg" alt="AutoFlow Logo" width="28" height="24" className={styles.footerLogo} />
+              <div className={styles.logoText}>Auto<span>Flow</span> Solutions</div>
+            </div>
             <p>Web development & automation expertise serving clients in 30+ countries. Built on trust, transparency, and results.</p>
             <div className={styles.socials}>
               <a href="#" aria-label="LinkedIn" className={styles.social}>🔗</a>

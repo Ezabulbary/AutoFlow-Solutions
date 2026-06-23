@@ -21,6 +21,13 @@
   max-width: 260px;
 }
 
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
 .logoText {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
