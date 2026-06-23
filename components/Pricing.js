@@ -58,12 +58,16 @@ export default function Pricing({ onSelectPlan }) {
   return (
     <section id="pricing" style={{ background: 'var(--bg-white)' }}>
       <div className="section-inner">
-        <span className="section-eyebrow">Pricing</span>
-        <h2 className="section-title">Transparent pricing, no surprises</h2>
-        <p className="section-sub">Three plans for every stage of business growth. All include delivery documentation and support.</p>
+        <span className="section-eyebrow reveal">Pricing</span>
+        <h2 className="section-title reveal">Transparent pricing, no surprises</h2>
+        <p className="section-sub reveal">Three plans for every stage of business growth. All include delivery documentation and support.</p>
         <div className={styles.grid}>
           {plans.map((plan, i) => (
-            <div key={i} className={`${styles.card} ${plan.featured ? styles.featured : ''}`}>
+            <div
+              key={i}
+              className={`${styles.card} ${plan.featured ? styles.featured : ''} reveal reveal-scale`}
+              style={{ transitionDelay: `${i * 0.1}s` }}
+            >
               <span className={styles.badge}>{plan.badge}</span>
               <div className={styles.name}>{plan.name}</div>
               <div className={styles.price}>

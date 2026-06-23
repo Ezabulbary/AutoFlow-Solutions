@@ -36,13 +36,13 @@ export default function Contact({ showToast }) {
   return (
     <section id="contact" style={{ background: 'var(--bg-white)' }}>
       <div className="section-inner">
-        <span className="section-eyebrow">Contact</span>
-        <h2 className="section-title">Let's talk automation</h2>
-        <p className="section-sub">Have a specific challenge? Book a free 30-minute discovery call or send a message.</p>
+        <span className="section-eyebrow reveal">Contact</span>
+        <h2 className="section-title reveal">Let's talk automation</h2>
+        <p className="section-sub reveal">Have a specific challenge? Book a free 30-minute discovery call or send a message.</p>
 
         <div className={styles.wrapper}>
           {/* Info card */}
-          <div className={styles.infoCard}>
+          <div className={`${styles.infoCard} reveal reveal-left`}>
             <div className={styles.infoGlow} />
             <h3 className={styles.infoName}>Ezabul Bari</h3>
             <p className={styles.infoDesc}>
@@ -58,7 +58,7 @@ export default function Contact({ showToast }) {
           </div>
 
           {/* Form */}
-          <div className={styles.formCard}>
+          <div className={`${styles.formCard} reveal reveal-right`}>
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.row}>
                 <div className={styles.group}>

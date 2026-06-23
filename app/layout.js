@@ -16,6 +16,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://autoflowsolutions.com'),
   title: 'AutoFlow Solutions — Business Automation Experts',
   description: 'Custom automation workflows that eliminate manual work and unlock growth for businesses worldwide. Zapier, Make.com, n8n, Stripe, API integrations and more.',
   keywords: 'business automation, workflow automation, Zapier, Make.com, n8n, web scraping, API integration, email automation',
@@ -35,7 +36,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${plusJakarta.variable} ${spaceGrotesk.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -35,12 +35,16 @@ export default function HowItWorks() {
   return (
     <section id="how" className={styles.section}>
       <div className="section-inner">
-        <span className="section-eyebrow">Process</span>
-        <h2 className="section-title">From discovery to done — fast</h2>
-        <p className="section-sub">A clear four-step process so you always know what's happening and when.</p>
+        <span className="section-eyebrow reveal">Process</span>
+        <h2 className="section-title reveal">From discovery to done — fast</h2>
+        <p className="section-sub reveal">A clear four-step process so you always know what's happening and when.</p>
         <div className={styles.grid}>
           {steps.map((s, i) => (
-            <div key={i} className={`${styles.card} ${styles[s.color]}`}>
+            <div
+              key={i}
+              className={`${styles.card} ${styles[s.color]} reveal reveal-scale`}
+              style={{ transitionDelay: `${i * 0.09}s` }}
+            >
               <div className={styles.stepNum}>{s.num}</div>
               <div className={styles.icon}>{s.icon}</div>
               <h3 className={styles.title}>{s.title}</h3>

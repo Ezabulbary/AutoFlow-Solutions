@@ -36,11 +36,15 @@ export default function Faq() {
   return (
     <section id="faq">
       <div className="section-inner">
-        <span className="section-eyebrow">FAQ</span>
-        <h2 className="section-title" style={{ textAlign: 'center' }}>Common questions</h2>
+        <span className="section-eyebrow reveal">FAQ</span>
+        <h2 className="section-title reveal" style={{ textAlign: 'center' }}>Common questions</h2>
         <div className={styles.list}>
           {faqs.map((faq, i) => (
-            <div key={i} className={`${styles.item} ${open === i ? styles.open : ''}`}>
+            <div
+              key={i}
+              className={`${styles.item} ${open === i ? styles.open : ''} reveal`}
+              style={{ transitionDelay: `${i * 0.06}s` }}
+            >
               <button
                 className={styles.question}
                 onClick={() => setOpen(open === i ? null : i)}

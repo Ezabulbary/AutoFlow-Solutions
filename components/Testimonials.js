@@ -34,12 +34,12 @@ export default function Testimonials() {
   return (
     <section id="testimonials" style={{ background: 'var(--bg-white)' }}>
       <div className="section-inner">
-        <span className="section-eyebrow">Testimonials</span>
-        <h2 className="section-title">Clients love the results</h2>
-        <p className="section-sub">Real feedback from businesses that have automated with AutoFlow Solutions.</p>
+        <span className="section-eyebrow reveal">Testimonials</span>
+        <h2 className="section-title reveal">Clients love the results</h2>
+        <p className="section-sub reveal">Real feedback from businesses that have automated with AutoFlow Solutions.</p>
         <div className={styles.grid}>
           {testimonials.map((t, i) => (
-            <div key={i} className={styles.card}>
+            <div key={i} className={`${styles.card} reveal`} style={{ transitionDelay: `${i * 0.1}s` }}>
               <div className={styles.stars}>{'★'.repeat(t.stars)}</div>
               <p className={styles.text}>{t.text}</p>
               <div className={styles.author}>

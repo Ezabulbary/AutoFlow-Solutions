@@ -131,9 +131,11 @@ export default function StripeTab({ plan, amount, onSuccess }) {
         Powered by <strong>Stripe</strong>. Your card details are encrypted and never stored.
       </p>
 
-      <div className={styles.testHint}>
-        🧪 Test card: <code>4242 4242 4242 4242</code> | Expiry: any future date | CVV: any 3 digits
-      </div>
+      {process.env.NEXT_PUBLIC_DEMO_MODE !== 'false' && (
+        <div className={styles.testHint}>
+          🧪 Test card: <code>4242 4242 4242 4242</code> | Expiry: any future date | CVV: any 3 digits
+        </div>
+      )}
     </form>
   );
 }

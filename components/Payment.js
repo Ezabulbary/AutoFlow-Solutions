@@ -18,13 +18,13 @@ export default function Payment({ onSelectPlan }) {
   return (
     <section id="payment">
       <div className="section-inner">
-        <span className="section-eyebrow">Payment</span>
-        <h2 className="section-title">Secure, global payment — your way</h2>
-        <p className="section-sub">Pay securely from anywhere in the world using your preferred method.</p>
+        <span className="section-eyebrow reveal">Payment</span>
+        <h2 className="section-title reveal">Secure, global payment — your way</h2>
+        <p className="section-sub reveal">Pay securely from anywhere in the world using your preferred method.</p>
 
         <div className={styles.wrapper}>
           {/* Left: info */}
-          <div className={styles.info}>
+          <div className={`${styles.info} reveal reveal-left`}>
             <h3 className={styles.infoTitle}>Accepted payment methods</h3>
             <p className={styles.infoDesc}>
               All payments are processed securely through Stripe and PayPal. You'll receive an invoice and receipt instantly after payment. International cards, bank transfers, and crypto welcome.
@@ -50,7 +50,7 @@ export default function Payment({ onSelectPlan }) {
           </div>
 
           {/* Right: CTA card */}
-          <div className={styles.ctaCard}>
+          <div className={`${styles.ctaCard} reveal reveal-right`}>
             <div className={styles.ctaGlow} />
             <div className={styles.ctaIcon}>🔒</div>
             <h3 className={styles.ctaTitle}>Ready to get started?</h3>

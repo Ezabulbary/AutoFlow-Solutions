@@ -5,14 +5,16 @@
   --violet-dark: #0050A3; /* Darker blue */
   --cyan: #00C3CB; /* Brand Secondary Cyan */
   --cyan-light: #E6FCFD; /* Light cyan tint */
+  --cyan-dark: #009AA1;
   --amber: #FF9900;
   --amber-light: #FFF3DC;
   --rose: #FF4D6D;
   --rose-light: #FFE8ED;
   --green: #22C55E;
   --green-light: #DCFCE7;
-  --bg: #F5F9FD; /* Adjusted bg to match new blue branding */
+  --bg: #F4F8FD; /* Adjusted bg to match new blue branding */
   --bg-white: #FFFFFF;
+  --bg-deep: #06122A; /* Deep navy for dark sections */
   --text: #0D1424; /* Adjusted text to deep blue-black */
   --text-muted: #566480; /* Adjusted to blue-gray */
   --text-faint: #90A0C0; /* Adjusted to light blue-gray */
@@ -23,6 +25,9 @@
   --shadow: 0 4px 24px rgba(0, 101, 205, 0.06);
   --shadow-md: 0 8px 32px rgba(0, 101, 205, 0.10);
   --shadow-lg: 0 20px 60px rgba(13, 20, 36, 0.12);
+  --grad-brand: linear-gradient(120deg, #0065CD 0%, #2E8BE6 45%, #00C3CB 100%);
+  --grad-brand-soft: linear-gradient(120deg, rgba(0,101,205,0.12), rgba(0,195,203,0.12));
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *, *::before, *::after {
@@ -45,44 +50,70 @@ body {
 }
 
 section {
-  padding: 5rem 2rem;
+  padding: 5.5rem 2rem;
+  position: relative;
 }
 
 .section-inner {
-  max-width: 1100px;
+  max-width: 1140px;
   margin: 0 auto;
 }
 
 .section-eyebrow {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--violet);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
+  padding: 5px 14px;
+  border-radius: 50px;
+  background: var(--grad-brand-soft);
+  border: 1px solid rgba(0, 101, 205, 0.14);
 }
 
 .section-title {
   font-family: var(--font-space-grotesk), sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: clamp(1.85rem, 3.6vw, 2.7rem);
   font-weight: 700;
   color: var(--text);
   margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   line-height: 1.2;
 }
 
 .section-sub {
   font-size: 17px;
   color: var(--text-muted);
-  max-width: 560px;
+  max-width: 580px;
   line-height: 1.7;
+}
+
+/* Gradient text helper */
+.gradient-text {
+  background: var(--grad-brand);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
 }
 
 /* ─── BUTTONS ─── */
 .btn-primary {
-  background: var(--violet);
+  position: relative;
+  background: var(--grad-brand);
+  background-size: 180% auto;
   color: #fff;
   border: none;
   padding: 15px 32px;
@@ -94,19 +125,37 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 4px 20px rgba(108,71,255,0.35);
+  overflow: hidden;
+  transition: background-position 0.5s ease, transform 0.2s var(--ease-out-expo), box-shadow 0.3s;
+  box-shadow: 0 8px 24px rgba(0, 101, 205, 0.32);
   font-family: var(--font-plus-jakarta), sans-serif;
 }
 
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(110deg, transparent, rgba(255,255,255,0.45), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+
 .btn-primary:hover {
-  background: var(--violet-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(108,71,255,0.45);
+  background-position: right center;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0, 101, 205, 0.42);
+}
+
+.btn-primary:hover::after {
+  left: 130%;
 }
 
 .btn-secondary {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
   color: var(--text);
   border: 1.5px solid var(--border);
   padding: 15px 32px;
@@ -118,14 +167,15 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: border-color 0.2s, transform 0.15s, color 0.2s;
+  transition: border-color 0.25s, transform 0.2s var(--ease-out-expo), color 0.25s, box-shadow 0.25s;
   font-family: var(--font-plus-jakarta), sans-serif;
 }
 
 .btn-secondary:hover {
   border-color: var(--violet);
   color: var(--violet);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 /* ─── FORM ELEMENTS ─── */
@@ -151,13 +201,15 @@ section {
   font-family: var(--font-plus-jakarta), sans-serif;
   color: var(--text);
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
   border-color: var(--violet);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 101, 205, 0.1);
 }
 
 .form-textarea {
@@ -166,7 +218,7 @@ section {
   line-height: 1.6;
 }
 
-/* ─── ANIMATIONS ─── */
+/* ─── KEYFRAME ANIMATIONS ─── */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-18px); }
@@ -186,6 +238,60 @@ section {
   to { transform: rotate(360deg); }
 }
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .animate-fade-in {
   animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ─── SCROLL REVEAL (driven by ScrollFX IntersectionObserver) ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+.reveal-scale { transform: translateY(20px) scale(0.96); }
+.reveal-left { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── SCROLL PROGRESS BAR ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: var(--grad-brand);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* ─── REUSABLE GLASS CARD ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
 }

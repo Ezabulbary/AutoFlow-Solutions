@@ -14,6 +14,9 @@ const TABS = [
   { id: 'bank', icon: '🏦', label: 'Bank Transfer' },
 ];
 
+// Demo mode is on unless the owner explicitly disables it after adding live keys.
+const IS_DEMO = process.env.NEXT_PUBLIC_DEMO_MODE !== 'false';
+
 export default function PaymentModal({ plan, amount, onClose, showToast }) {
   const [tab, setTab] = useState('stripe');
 
@@ -48,10 +51,12 @@ export default function PaymentModal({ plan, amount, onClose, showToast }) {
           <button className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</button>
         </div>
 
-        {/* Demo mode banner */}
-        <div className={styles.demoBanner}>
-          🧪 <strong>Demo mode active</strong> — No real charges will be made. Add your API keys to `.env.local` to go live.
-        </div>
+        {/* Demo mode banner — hidden automatically once NEXT_PUBLIC_DEMO_MODE=false */}
+        {IS_DEMO && (
+          <div className={styles.demoBanner}>
+            🧪 <strong>Demo mode active</strong> — No real charges will be made. Add your API keys and set <code>NEXT_PUBLIC_DEMO_MODE=false</code> to go live.
+          </div>
+        )}
 
         {/* Tabs */}
         <div className={styles.tabs}>

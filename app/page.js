@@ -2,6 +2,7 @@
 
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
+import Marquee from '@/components/Marquee';
 import HowItWorks from '@/components/HowItWorks';
 import Services from '@/components/Services';
 import Pricing from '@/components/Pricing';
@@ -12,6 +13,7 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Toast from '@/components/Toast';
 import PaymentModal from '@/components/PaymentModal';
+import ScrollFX from '@/components/ScrollFX';
 import { useState } from 'react';
 
 export default function Home() {
@@ -33,9 +35,11 @@ export default function Home() {
 
   return (
     <>
+      <ScrollFX />
       <Nav />
       <main>
-        <Hero onCta={() => document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' })} />
+        <Hero />
+        <Marquee />
         <HowItWorks />
         <Services />
         <Pricing onSelectPlan={openPayModal} />

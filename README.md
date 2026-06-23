@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AutoFlow Solutions
 
-## Getting Started
+A unique, animated, **payment-ready SaaS landing page** for a business-automation service — built with Next.js 16 (App Router, Turbopack) and React 19.
 
-First, run the development server:
+It ships fully working in **demo mode** (no API keys required) and goes live with real payments by adding a few environment variables. No code changes needed to deploy and start selling.
+
+## ✨ Highlights
+
+- **Animated experience** — scroll-progress bar, scroll-reveal sections, an animated "live workflow" automation pipeline in the hero, count-up stats, infinite tools marquee, gradient headlines, and micro-interactions throughout. Respects `prefers-reduced-motion`.
+- **Multi-method checkout** — Card (Stripe), PayPal, Crypto (Coinbase Commerce) and Bank Transfer (Wire / bKash / Nagad), in a polished modal.
+- **Demo-safe by default** — simulates the full purchase flow so you can deploy and showcase instantly. Flip one env var to go live.
+- **Production-ready** — clean App Router structure, SEO/OpenGraph metadata, accessible, responsive, and zero build warnings.
+
+## 🚀 Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build & run the production server:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💳 Going live with payments
 
-## Learn More
+The site runs in **demo mode** until you opt in. To accept real payments:
 
-To learn more about Next.js, take a look at the following resources:
+1. Copy the env template and fill in your keys:
+   ```bash
+   cp .env.example .env.local
+   ```
+2. Add your **Stripe**, **Coinbase Commerce**, and/or **PayPal** keys (see `.env.example` for where to get each).
+3. Set `NEXT_PUBLIC_DEMO_MODE=false`. This switches the API routes to real charges and hides all demo banners/test hints.
+4. Redeploy. That's it — you're taking payments.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> Leave `NEXT_PUBLIC_DEMO_MODE=true` (or unset) for safe demos and screenshots.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ☁️ Deploy
 
-## Deploy on Vercel
+Works on any Next.js host. The fastest path is [Vercel](https://vercel.com/new):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push this repo to GitHub.
+2. Import it into Vercel.
+3. Add the environment variables from `.env.example` in the Vercel dashboard.
+4. Deploy.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🗂️ Structure
+
+```
+app/
+  layout.js              # fonts, SEO/OG metadata
+  page.js                # section composition
+  globals.css            # design system + animation utilities
+  api/stripe/route.js    # Stripe checkout (demo-aware)
+  api/coinbase/route.js  # Coinbase Commerce (demo-aware)
+  success/               # post-payment confirmation
+components/
+  ScrollFX.js            # scroll-progress bar + reveal observer
+  Hero.js / CountUp.js   # animated hero + count-up stats
+  Marquee.js             # animated tools strip
+  PaymentModal.js        # multi-method checkout
+  payment-tabs/          # Stripe / PayPal / Crypto / Bank tabs
+  ...                    # Nav, Services, Pricing, Testimonials, FAQ, Contact, Footer
+```
+
+Built by **Ezabul Bari** — web developer & automation expert.

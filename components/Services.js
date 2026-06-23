@@ -55,15 +55,15 @@ export default function Services() {
   return (
     <section id="services">
       <div className="section-inner">
-        <span className="section-eyebrow">Services</span>
-        <h2 className="section-title">What I automate for you</h2>
-        <p className="section-sub">Six core automation services designed to eliminate your most time-consuming tasks.</p>
+        <span className="section-eyebrow reveal">Services</span>
+        <h2 className="section-title reveal">What I automate for you</h2>
+        <p className="section-sub reveal">Six core automation services designed to eliminate your most time-consuming tasks.</p>
         <div className={styles.grid}>
           {services.map((svc, i) => (
             <div
               key={i}
-              className={styles.card}
-              style={{ '--accent': svc.accent, '--light': svc.light }}
+              className={`${styles.card} reveal`}
+              style={{ '--accent': svc.accent, '--light': svc.light, transitionDelay: `${(i % 3) * 0.09}s` }}
             >
               <div className={styles.topBar} style={{ background: svc.accent }} />
               <span className={styles.badge} style={{ background: svc.light, color: svc.accent }}>
