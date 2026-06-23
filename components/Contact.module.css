@@ -1,0 +1,126 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2.5rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+
+/* Info card */
+.infoCard {
+  background: linear-gradient(140deg, var(--violet) 0%, #7C3AED 100%);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.infoGlow {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 70%);
+  bottom: -60px;
+  right: -60px;
+  pointer-events: none;
+}
+
+.infoName {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.infoDesc {
+  font-size: 14px;
+  opacity: 0.82;
+  margin-bottom: 2rem;
+  line-height: 1.75;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.item span { font-size: 18px; }
+
+/* Form card */
+.formCard {
+  background: var(--bg);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  border: 1px solid var(--border);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.submitBtn {
+  background: var(--violet);
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 16px rgba(108, 71, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--violet-dark);
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled { opacity: 0.75; cursor: not-allowed; }
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 768px) {
+  .wrapper { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 1fr; }
+}

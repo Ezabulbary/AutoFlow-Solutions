@@ -1,0 +1,351 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Card field */
+.cardField {
+  display: flex;
+  align-items: center;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  gap: 10px;
+  transition: border-color 0.2s;
+}
+
+.cardField:focus-within {
+  border-color: var(--violet);
+}
+
+.cardField input {
+  border: none;
+  background: transparent;
+  flex: 1;
+  font-size: 14px;
+  outline: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text);
+  letter-spacing: 0.08em;
+}
+
+.brands { display: flex; gap: 4px; }
+.visa { background: #1A1F71; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 5px; border-radius: 3px; }
+.mc { background: #EB001B; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 5px; border-radius: 3px; }
+.amex { background: #2E77BC; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 5px; border-radius: 3px; }
+
+/* Pay button */
+.payBtn {
+  width: 100%;
+  padding: 14px;
+  background: var(--violet);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  box-shadow: 0 4px 16px rgba(108, 71, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+}
+
+.payBtn:hover:not(:disabled) {
+  background: var(--violet-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(108, 71, 255, 0.4);
+}
+
+.payBtn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.paypalBtn {
+  background: #0070BA;
+  box-shadow: 0 4px 16px rgba(0, 112, 186, 0.3);
+}
+
+.paypalBtn:hover:not(:disabled) {
+  background: #005EA6;
+  box-shadow: 0 6px 20px rgba(0, 112, 186, 0.4);
+}
+
+/* Spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error */
+.error {
+  background: var(--rose-light);
+  color: var(--rose);
+  border: 1px solid rgba(255, 77, 109, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Note */
+.note {
+  font-size: 12px;
+  color: var(--text-faint);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Test hint */
+.testHint {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #15803D;
+}
+
+.testHint code {
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* PayPal */
+.paypalLogo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.paypalDesc {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.orderSummary {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.orderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.orderRow:last-child { border-bottom: none; }
+.orderRow span:first-child { color: var(--text-muted); }
+
+/* Crypto */
+.cryptoHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 0.5rem;
+}
+
+.cryptoIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #F7931A, #FFBC59);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.cryptoTitle { font-size: 16px; font-weight: 700; }
+.cryptoSub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+.coinGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.coinBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  cursor: pointer;
+  font-size: 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.coinBtn:hover { border-color: var(--amber); }
+.coinActive { border-color: var(--amber); background: var(--amber-light); }
+
+.cryptoAmount {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.amountLabel { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.amountValue { font-size: 20px; font-weight: 700; color: var(--text); }
+
+.addressBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.address {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  flex: 1;
+  word-break: break-all;
+}
+
+.copyBtn {
+  background: var(--violet-light);
+  color: var(--violet);
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background 0.2s;
+}
+
+.copyBtn:hover { background: var(--violet); color: #fff; }
+
+.cryptoWarning {
+  background: var(--amber-light);
+  border: 1px solid rgba(255, 153, 0, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #92400E;
+  line-height: 1.5;
+}
+
+/* Bank Transfer */
+.bankMethodGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.bankMethodBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.bankMethodBtn span:first-child { font-size: 20px; }
+.bankMethodBtn:hover { border-color: var(--violet); color: var(--violet); }
+.bankMethodActive { border-color: var(--violet); background: var(--violet-light); color: var(--violet); }
+
+.bankDetails {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.bankDetailsTitle {
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+}
+
+.bankDetailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+
+.bankDetailRow:last-child { border-bottom: none; }
+.bankDetailLabel { color: var(--text-muted); font-size: 12px; flex-shrink: 0; }
+.bankDetailRight { display: flex; align-items: center; gap: 6px; }
+.bankDetailValue { font-family: monospace; font-size: 12px; color: var(--text); }
+
+.miniCopyBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.miniCopyBtn:hover { background: var(--violet-light); }

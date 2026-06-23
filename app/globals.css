@@ -1,0 +1,191 @@
+:root {
+  --violet: #6C47FF;
+  --violet-light: #EDE9FF;
+  --violet-mid: #A48EFF;
+  --violet-dark: #5535DD;
+  --cyan: #00C9C8;
+  --cyan-light: #DFFAFA;
+  --amber: #FF9900;
+  --amber-light: #FFF3DC;
+  --rose: #FF4D6D;
+  --rose-light: #FFE8ED;
+  --green: #22C55E;
+  --green-light: #DCFCE7;
+  --bg: #F7F5FF;
+  --bg-white: #FFFFFF;
+  --text: #0D0A1E;
+  --text-muted: #6B6880;
+  --text-faint: #A09CB8;
+  --border: #E4E1F5;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-xl: 24px;
+  --shadow: 0 4px 24px rgba(108,71,255,0.10);
+  --shadow-md: 0 8px 32px rgba(108,71,255,0.15);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-plus-jakarta), sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+section {
+  padding: 5rem 2rem;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.section-sub {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  background: var(--violet);
+  color: #fff;
+  border: none;
+  padding: 15px 32px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(108,71,255,0.35);
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+.btn-primary:hover {
+  background: var(--violet-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(108,71,255,0.45);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  padding: 15px 32px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.2s, transform 0.15s, color 0.2s;
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+.btn-secondary:hover {
+  border-color: var(--violet);
+  color: var(--violet);
+  transform: translateY(-2px);
+}
+
+/* ─── FORM ELEMENTS ─── */
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: 14px;
+  font-family: var(--font-plus-jakarta), sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--violet);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-18px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
