@@ -17,8 +17,11 @@ const TABS = [
 // Demo mode is on unless the owner explicitly disables it after adding live keys.
 const IS_DEMO = process.env.NEXT_PUBLIC_DEMO_MODE !== 'false';
 
-export default function PaymentModal({ plan, amount, onClose, showToast }) {
+export default function PaymentModal({ plan, amount, onClose, showToast, onPaid }) {
   const [tab, setTab] = useState('stripe');
+
+  // Maps the tab's human label to the stored method code.
+  const METHOD_CODE = { 'PayPal': 'paypal', 'Bank Transfer': 'bank' };
 
   // Close on Escape key
   useEffect(() => {
@@ -31,9 +34,33 @@ export default function PaymentModal({ plan, amount, onClose, showToast }) {
     };
   }, [onClose]);
 
-  function handleSuccess(method) {
-    onClose();
-    showToast(`✅ Payment via ${method} initiated! Check your email for confirmation.`);
+  // Card (Stripe) and Crypto (Coinbase) redirect via their API routes, which
+  // record the payment server-side. PayPal and Bank Transfer settle in-modal,
+  // so we persist them here before closing.
+  async function handleSuccess(method) {
+    const code = METHOD_CODE[method];
+    if (code) {
+      try {
+        const res = await fetch('/api/payments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan, method: code }),
+        });
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || 'Could not record payment.');
+        }
+      } catch (err) {
+        showToast(`❌ ${err.message}`);
+        return;
+      }
+    }
+    if (onPaid) {
+      onPaid();
+    } else {
+      onClose();
+      showToast(`✅ Payment via ${method} recorded!`);
+    }
   }
 
   return (

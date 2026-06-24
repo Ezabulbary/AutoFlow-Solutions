@@ -1,12 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from './Nav.module.css';
+import { useAuth } from './AuthProvider';
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
+  const { user, loading } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -49,9 +52,20 @@ export default function Nav() {
         </ul>
 
         <div className={styles.navRight}>
-          <button className={styles.cta} onClick={() => scrollTo('pricing')}>
-            Get started
-          </button>
+          {!loading && user ? (
+            <button className={styles.cta} onClick={() => router.push('/dashboard')}>
+              Dashboard
+            </button>
+          ) : (
+            <>
+              <button className={styles.loginLink} onClick={() => router.push('/login')}>
+                Log in
+              </button>
+              <button className={styles.cta} onClick={() => router.push('/register')}>
+                Get started
+              </button>
+            </>
+          )}
           <button
             className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
             onClick={() => setMenuOpen(!menuOpen)}

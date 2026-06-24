@@ -83,6 +83,19 @@
   gap: 12px;
 }
 
+.loginLink {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: color 0.2s;
+}
+.loginLink:hover { color: var(--violet); }
+
 .cta {
   background: var(--violet);
   color: #fff;

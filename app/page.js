@@ -12,25 +12,27 @@ import Faq from '@/components/Faq';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Toast from '@/components/Toast';
-import PaymentModal from '@/components/PaymentModal';
 import ScrollFX from '@/components/ScrollFX';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/components/AuthProvider';
 
 export default function Home() {
   const [toast, setToast] = useState(null);
-  const [payModal, setPayModal] = useState(null); // { plan, amount }
+  const router = useRouter();
+  const { user } = useAuth();
 
   function showToast(msg, icon = '✅') {
     setToast({ msg, icon });
     setTimeout(() => setToast(null), 4000);
   }
 
-  function openPayModal(plan, amount) {
-    setPayModal({ plan, amount });
-  }
-
-  function closePayModal() {
-    setPayModal(null);
+  // Payment requires an account. Send guests to register (then back to checkout),
+  // and logged-in users straight to their dashboard with the plan preselected.
+  function selectPlan(plan) {
+    const target = `/dashboard?plan=${encodeURIComponent(plan)}`;
+    if (user) router.push(target);
+    else router.push(`/register?next=${encodeURIComponent(target)}`);
   }
 
   return (
@@ -42,21 +44,13 @@ export default function Home() {
         <Marquee />
         <HowItWorks />
         <Services />
-        <Pricing onSelectPlan={openPayModal} />
-        <Payment onSelectPlan={openPayModal} />
+        <Pricing onSelectPlan={selectPlan} />
+        <Payment onSelectPlan={selectPlan} />
         <Testimonials />
         <Faq />
         <Contact showToast={showToast} />
       </main>
       <Footer />
-      {payModal && (
-        <PaymentModal
-          plan={payModal.plan}
-          amount={payModal.amount}
-          onClose={closePayModal}
-          showToast={showToast}
-        />
-      )}
       <Toast toast={toast} />
     </>
   );

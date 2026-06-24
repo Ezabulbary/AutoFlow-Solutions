@@ -1,15 +1,27 @@
 import { NextResponse } from 'next/server';
+import { resolvePlanAmount } from '@/lib/pricing';
+import { getCurrentUser } from '@/lib/auth';
+import { createPayment } from '@/lib/payments';
+import { sameOrigin } from '@/lib/http';
 
 export async function POST(req) {
   try {
-    const { plan, amount, email } = await req.json();
+    if (!sameOrigin(req)) return NextResponse.json({ error: 'Invalid origin' }, { status: 403 });
 
-    const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Please log in to continue.' }, { status: 401 });
+
+    const { plan } = await req.json();
+    // Security: derive the price server-side from the plan; never trust the client.
+    const amount = resolvePlanAmount(plan);
+    if (amount === null) return NextResponse.json({ error: 'Unknown plan selected.' }, { status: 400 });
+
+    const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE !== 'false';
     const apiKey = process.env.COINBASE_COMMERCE_API_KEY;
     const hasRealKey = apiKey && !apiKey.includes('REPLACE_WITH');
 
     if (isDemo || !hasRealKey) {
-      // Demo Mode: redirect directly to our local success page
+      await createPayment({ userId: user.id, plan, amount, method: 'crypto', status: 'PAID', reference: 'demo' });
       const successUrl = `${req.nextUrl.origin}/success?method=crypto&plan=${encodeURIComponent(plan)}&amount=${amount}`;
       return NextResponse.json({ url: successUrl });
     }
@@ -25,15 +37,10 @@ export async function POST(req) {
         name: plan,
         description: `AutoFlow Solutions — ${plan} plan crypto payment`,
         pricing_type: 'fixed_price',
-        local_price: {
-          amount: amount.toString(),
-          currency: 'USD',
-        },
-        metadata: {
-          customer_email: email,
-        },
+        local_price: { amount: amount.toString(), currency: 'USD' },
+        metadata: { customer_email: user.email, user_id: String(user.id) },
         redirect_url: `${req.nextUrl.origin}/success?method=crypto&plan=${encodeURIComponent(plan)}&amount=${amount}`,
-        cancel_url: `${req.nextUrl.origin}/`,
+        cancel_url: `${req.nextUrl.origin}/dashboard`,
       }),
     });
 
@@ -42,9 +49,12 @@ export async function POST(req) {
       throw new Error(data.error?.message || 'Coinbase Commerce API returned an error.');
     }
 
+    await createPayment({
+      userId: user.id, plan, amount, method: 'crypto', status: 'PENDING', reference: data.data?.id || null,
+    });
     return NextResponse.json({ url: data.data.hosted_url });
   } catch (error) {
     console.error('Coinbase Commerce API error:', error);
-    return NextResponse.json({ error: error.message || 'Failed to create Coinbase charge.' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create Coinbase charge.' }, { status: 500 });
   }
 }
