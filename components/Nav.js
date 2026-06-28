@@ -44,7 +44,7 @@ export default function Nav() {
         <ul className={styles.links}>
           {links.map(l => (
             <li key={l.id}>
-              <button className={styles.link} onClick={() => scrollTo(l.id)}>
+              <button type="button" className={styles.link} onClick={() => scrollTo(l.id)}>
                 {l.label}
               </button>
             </li>
@@ -53,20 +53,21 @@ export default function Nav() {
 
         <div className={styles.navRight}>
           {!loading && user ? (
-            <button className={styles.cta} onClick={() => router.push('/dashboard')}>
+            <button type="button" className={styles.cta} onClick={() => router.push('/dashboard')}>
               Dashboard
             </button>
           ) : (
             <>
-              <button className={styles.loginLink} onClick={() => router.push('/login')}>
+              <button type="button" className={styles.loginLink} onClick={() => router.push('/login')}>
                 Log in
               </button>
-              <button className={styles.cta} onClick={() => router.push('/register')}>
+              <button type="button" className={styles.cta} onClick={() => router.push('/register')}>
                 Get started
               </button>
             </>
           )}
           <button
+            type="button"
             className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
@@ -82,11 +83,11 @@ export default function Nav() {
       <div className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}>
         <div className={styles.drawerInner}>
           {links.map(l => (
-            <button key={l.id} className={styles.drawerLink} onClick={() => scrollTo(l.id)}>
+            <button type="button" key={l.id} className={styles.drawerLink} onClick={() => scrollTo(l.id)}>
               {l.label}
             </button>
           ))}
-          <button className={styles.drawerCta} onClick={() => scrollTo('pricing')}>
+          <button type="button" className={styles.drawerCta} onClick={() => scrollTo('pricing')}>
             🚀 Get started
           </button>
         </div>

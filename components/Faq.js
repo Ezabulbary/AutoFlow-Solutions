@@ -46,6 +46,7 @@ export default function Faq() {
               style={{ transitionDelay: `${i * 0.06}s` }}
             >
               <button
+                type="button"
                 className={styles.question}
                 onClick={() => setOpen(open === i ? null : i)}
               >

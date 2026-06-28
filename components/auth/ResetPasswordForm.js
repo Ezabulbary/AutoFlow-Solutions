@@ -6,89 +6,64 @@ import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { generateStrongPassword, scorePassword } from '@/lib/passwordClient';
 import PasswordStrength from './PasswordStrength';
-import GoogleButton from './GoogleButton';
-import { saveCredential } from '@/lib/credentials';
 import styles from './Auth.module.css';
 
-export default function RegisterForm() {
+export default function ResetPasswordForm() {
   const router = useRouter();
   const params = useSearchParams();
   const { refresh } = useAuth();
-  const next = params.get('next') || '/dashboard';
+  const token = params.get('token') || '';
 
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  function update(k, v) {
-    setForm((p) => ({ ...p, [k]: v }));
-  }
-
   function suggest() {
-    const pw = generateStrongPassword(16);
-    update('password', pw);
+    setPassword(generateStrongPassword(16));
     setShow(true);
   }
 
   async function onSubmit(e) {
     e.preventDefault();
     setError('');
-    if (!scorePassword(form.password).valid) {
+    if (!scorePassword(password).valid) {
       setError('Please choose a stronger password (use the Suggest button).');
       return;
     }
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch('/api/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ token, password }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Registration failed.');
-      // Prompt the browser's password manager to save these credentials.
-      await saveCredential({ email: form.email, password: form.password, name: form.name });
+      if (!res.ok) throw new Error(data.error || 'Could not reset password.');
       await refresh();
-      router.replace(next);
+      router.replace('/dashboard');
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
   }
 
+  if (!token) {
+    return (
+      <div className={styles.form}>
+        <div className={styles.error}>This reset link is missing or invalid.</div>
+        <p className={styles.alt}>
+          <Link href="/forgot-password">Request a new reset link</Link>
+        </p>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={onSubmit} className={styles.form} noValidate>
       <div className={styles.field}>
-        <label className="form-label">Full name</label>
-        <input
-          className="form-input"
-          name="name"
-          id="reg-name"
-          placeholder="Your name"
-          value={form.name}
-          onChange={(e) => update('name', e.target.value)}
-          autoComplete="name"
-          required
-        />
-      </div>
-      <div className={styles.field}>
-        <label className="form-label">Email</label>
-        <input
-          className="form-input"
-          type="email"
-          name="email"
-          id="reg-email"
-          placeholder="you@company.com"
-          value={form.email}
-          onChange={(e) => update('email', e.target.value)}
-          autoComplete="email"
-          required
-        />
-      </div>
-      <div className={styles.field}>
         <div className={styles.labelRow}>
-          <label className="form-label">Password</label>
+          <label className="form-label">New password</label>
           <button type="button" className={styles.suggestBtn} onClick={suggest}>
             ✨ Suggest strong
           </button>
@@ -98,10 +73,10 @@ export default function RegisterForm() {
             className="form-input"
             type={show ? 'text' : 'password'}
             name="password"
-            id="reg-password"
+            id="reset-password"
             placeholder="Create a strong password"
-            value={form.password}
-            onChange={(e) => update('password', e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             autoComplete="new-password"
             required
           />
@@ -109,19 +84,17 @@ export default function RegisterForm() {
             {show ? '🙈' : '👁️'}
           </button>
         </div>
-        <PasswordStrength password={form.password} />
+        <PasswordStrength password={password} />
       </div>
 
       {error && <div className={styles.error}>{error}</div>}
 
       <button type="submit" className={styles.submit} disabled={loading}>
-        {loading ? <span className={styles.spinner} /> : 'Create account'}
+        {loading ? <span className={styles.spinner} /> : 'Reset password & log in'}
       </button>
 
-      <GoogleButton next={next} label="Sign up with Google" />
-
       <p className={styles.alt}>
-        Already have an account? <Link href="/login">Log in</Link>
+        <Link href="/login">← Back to login</Link>
       </p>
     </form>
   );

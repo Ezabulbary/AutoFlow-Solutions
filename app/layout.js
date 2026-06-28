@@ -38,7 +38,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${plusJakarta.variable} ${spaceGrotesk.variable}`}>
-      <body>
+      {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) inject
+          attributes on <body> before React hydrates, causing a harmless mismatch. */}
+      <body suppressHydrationWarning>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import GoogleButton from './GoogleButton';
+import { saveCredential } from '@/lib/credentials';
 import styles from './Auth.module.css';
 
 const OAUTH_ERRORS = {
@@ -40,6 +41,8 @@ export default function LoginForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Login failed.');
+      // Prompt the browser's password manager to save these credentials.
+      await saveCredential({ email: form.email, password: form.password, name: data.user?.name });
       await refresh();
       router.replace(next);
     } catch (err) {
@@ -55,10 +58,12 @@ export default function LoginForm() {
         <input
           className="form-input"
           type="email"
+          name="email"
+          id="login-email"
           placeholder="you@company.com"
           value={form.email}
           onChange={(e) => update('email', e.target.value)}
-          autoComplete="email"
+          autoComplete="username"
           required
         />
       </div>
@@ -68,6 +73,8 @@ export default function LoginForm() {
           <input
             className="form-input"
             type={show ? 'text' : 'password'}
+            name="password"
+            id="login-password"
             placeholder="Your password"
             value={form.password}
             onChange={(e) => update('password', e.target.value)}
@@ -78,6 +85,10 @@ export default function LoginForm() {
             {show ? '🙈' : '👁️'}
           </button>
         </div>
+      </div>
+
+      <div className={styles.forgotRow}>
+        <Link href="/forgot-password" className={styles.forgotLink}>Forgot password?</Link>
       </div>
 
       {error && <div className={styles.error}>{error}</div>}
