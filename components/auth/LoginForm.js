@@ -14,6 +14,20 @@ const OAUTH_ERRORS = {
   suspended: 'This account has been suspended. Contact support.',
 };
 
+// More specific hint based on which callback stage failed (?reason=...).
+const OAUTH_REASONS = {
+  state: 'Security check failed (cookie blocked or expired). Try again in the same browser tab.',
+  token: 'Could not verify with Google — check GOOGLE_CLIENT_SECRET and the redirect URI.',
+  db: 'Signed in with Google, but saving your account failed (database).',
+};
+
+function oauthMessage(params) {
+  const err = params.get('error');
+  if (!err) return '';
+  const reason = params.get('reason');
+  return (OAUTH_REASONS[reason] || OAUTH_ERRORS[err] || '');
+}
+
 export default function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
@@ -22,7 +36,7 @@ export default function LoginForm() {
 
   const [form, setForm] = useState({ email: '', password: '' });
   const [show, setShow] = useState(false);
-  const [error, setError] = useState(OAUTH_ERRORS[params.get('error')] || '');
+  const [error, setError] = useState(oauthMessage(params));
   const [loading, setLoading] = useState(false);
 
   function update(k, v) {
