@@ -31,7 +31,7 @@ export default function Contact({ showToast }) {
     await new Promise(r => setTimeout(r, 1800));
     setSending(false);
     setForm({ name: '', email: '', service: '', message: '' });
-    showToast('✅ Message sent! Ezabul will reply within 4–8 hours.');
+    showToast('✅ Message sent! Our team will reply within 4-8 hours.');
   }
 
   return (
@@ -45,15 +45,15 @@ export default function Contact({ showToast }) {
           {/* Info card */}
           <div className={`${styles.infoCard} reveal reveal-left`}>
             <div className={styles.infoGlow} />
-            <h3 className={styles.infoName}>Ezabul Bari</h3>
+            <h3 className={styles.infoName}>AutoFlow Solutions</h3>
             <p className={styles.infoDesc}>
-              Web developer & automation expert based in Bagerhat, Bangladesh. Serving clients globally with fast turnaround and clean, documented work.
+              A team of web developers and automation experts serving clients globally with fast turnaround and clean, documented work.
             </p>
             <div className={styles.items}>
-              <div className={styles.item}><span>📧</span> ezabul@autoflowsolutions.com</div>
+              <div className={styles.item}><span>📧</span> hello@autoflowsolutions.com</div>
               <div className={styles.item}><span>💬</span> WhatsApp: +880 XXX XXX XXXX</div>
-              <div className={styles.item}><span>🕐</span> Response within 4–8 hours</div>
-              <div className={styles.item}><span>🌍</span> Available worldwide — 30+ countries</div>
+              <div className={styles.item}><span>🕐</span> Response within 4-8 hours</div>
+              <div className={styles.item}><span>🌍</span> Available worldwide, 30+ countries</div>
               <div className={styles.item}><span>📅</span> Free 30-min discovery call available</div>
             </div>
             <a className={styles.bookCall} href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">

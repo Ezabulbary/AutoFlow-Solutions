@@ -17,7 +17,7 @@ export default function ChangePasswordForm() {
     e.preventDefault();
     setNotice(null);
     if (!scorePassword(newPassword).valid) {
-      setNotice({ type: 'err', msg: 'New password is too weak — use the Suggest button.' });
+      setNotice({ type: 'err', msg: 'New password is too weak. Use the Suggest button.' });
       return;
     }
     setLoading(true);

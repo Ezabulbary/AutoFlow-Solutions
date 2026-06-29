@@ -4,7 +4,7 @@ import RegisterForm from '@/components/auth/RegisterForm';
 import styles from '@/components/auth/Auth.module.css';
 
 export const metadata = {
-  title: 'Create account — AutoFlow Solutions',
+  title: 'Create account | AutoFlow Solutions',
   robots: { index: false },
 };
 

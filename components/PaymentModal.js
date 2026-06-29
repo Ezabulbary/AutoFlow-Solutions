@@ -17,7 +17,7 @@ const TABS = [
 // Demo mode is on unless the owner explicitly disables it after adding live keys.
 const IS_DEMO = process.env.NEXT_PUBLIC_DEMO_MODE !== 'false';
 
-export default function PaymentModal({ plan, amount, onClose, showToast, onPaid }) {
+export default function PaymentModal({ plan, amount, tier = 'low', label, onClose, showToast, onPaid }) {
   const [tab, setTab] = useState('stripe');
 
   // Maps the tab's human label to the stored method code.
@@ -44,7 +44,7 @@ export default function PaymentModal({ plan, amount, onClose, showToast, onPaid 
         const res = await fetch('/api/payments', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ plan, method: code }),
+          body: JSON.stringify({ plan, method: code, tier, amount: plan === 'Custom' ? amount : undefined, label }),
         });
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));
@@ -81,7 +81,7 @@ export default function PaymentModal({ plan, amount, onClose, showToast, onPaid 
         {/* Demo mode banner — hidden automatically once NEXT_PUBLIC_DEMO_MODE=false */}
         {IS_DEMO && (
           <div className={styles.demoBanner}>
-            🧪 <strong>Demo mode active</strong> — No real charges will be made. Add your API keys and set <code>NEXT_PUBLIC_DEMO_MODE=false</code> to go live.
+            🧪 <strong>Demo mode active</strong>. No real charges will be made. Add your API keys and set <code>NEXT_PUBLIC_DEMO_MODE=false</code> to go live.
           </div>
         )}
 
@@ -101,9 +101,9 @@ export default function PaymentModal({ plan, amount, onClose, showToast, onPaid 
 
         {/* Tab content */}
         <div className={styles.body}>
-          {tab === 'stripe' && <StripeTab plan={plan} amount={amount} onSuccess={() => handleSuccess('Card')} />}
+          {tab === 'stripe' && <StripeTab plan={plan} amount={amount} tier={tier} label={label} onSuccess={() => handleSuccess('Card')} />}
           {tab === 'paypal' && <PayPalTab plan={plan} amount={amount} onSuccess={() => handleSuccess('PayPal')} />}
-          {tab === 'crypto' && <CryptoTab plan={plan} amount={amount} onSuccess={() => handleSuccess('Crypto')} />}
+          {tab === 'crypto' && <CryptoTab plan={plan} amount={amount} tier={tier} label={label} onSuccess={() => handleSuccess('Crypto')} />}
           {tab === 'bank' && <BankTransferTab plan={plan} amount={amount} onSuccess={() => handleSuccess('Bank Transfer')} showToast={showToast} />}
         </div>
 

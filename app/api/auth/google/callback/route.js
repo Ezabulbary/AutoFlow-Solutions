@@ -35,7 +35,8 @@ export async function GET(req) {
     profile = await exchangeCodeForProfile({ code, origin });
   } catch (err) {
     console.error('Google OAuth: token/profile exchange failed:', err);
-    return redirectTo(origin, '/login?error=google&reason=token');
+    const detail = encodeURIComponent(String(err?.message || '').slice(0, 160));
+    return redirectTo(origin, `/login?error=google&reason=token&detail=${detail}`);
   }
 
   // Stage 2: find or create the account and start a session.
@@ -59,6 +60,7 @@ export async function GET(req) {
     return res;
   } catch (err) {
     console.error('Google OAuth: account/session step failed:', err);
-    return redirectTo(origin, '/login?error=google&reason=db');
+    const detail = encodeURIComponent(String(err?.message || '').slice(0, 160));
+    return redirectTo(origin, `/login?error=google&reason=db&detail=${detail}`);
   }
 }

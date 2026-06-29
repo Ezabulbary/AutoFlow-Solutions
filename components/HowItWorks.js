@@ -12,14 +12,14 @@ const steps = [
     num: '02',
     icon: '🏗️',
     title: 'Build & test',
-    desc: 'I build your automation with full error handling, test it thoroughly, and iterate based on your feedback.',
+    desc: 'We build your automation with full error handling, test it thoroughly, and iterate based on your feedback.',
     color: 'cyan',
   },
   {
     num: '03',
     icon: '🚀',
     title: 'Launch & handover',
-    desc: 'Your automation goes live. I deliver a recorded walkthrough so your team understands how everything works.',
+    desc: 'Your automation goes live. We deliver a recorded walkthrough so your team understands how everything works.',
     color: 'amber',
   },
   {
@@ -36,7 +36,7 @@ export default function HowItWorks() {
     <section id="how" className={styles.section}>
       <div className="section-inner">
         <span className="section-eyebrow reveal">Process</span>
-        <h2 className="section-title reveal">From discovery to done — fast</h2>
+        <h2 className="section-title reveal">From discovery to done, fast</h2>
         <p className="section-sub reveal">A clear four-step process so you always know what's happening and when.</p>
         <div className={styles.grid}>
           {steps.map((s, i) => (

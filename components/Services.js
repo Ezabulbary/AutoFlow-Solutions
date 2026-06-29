@@ -20,7 +20,7 @@ const services = [
   {
     badge: 'Data',
     title: 'Web scraping & data pipelines',
-    desc: 'Extract, clean, and deliver structured data from any website — leads, prices, research, or competitor intelligence.',
+    desc: 'Extract, clean, and deliver structured data from any website: leads, prices, research, or competitor intelligence.',
     tools: ['Python', 'Playwright', 'BeautifulSoup', 'Sheets'],
     accent: '#FF9900',
     light: '#FFF3DC',
@@ -44,7 +44,7 @@ const services = [
   {
     badge: 'Reporting',
     title: 'Auto-generated dashboards',
-    desc: 'Weekly and monthly reports delivered automatically to inboxes or Notion — no manual compiling ever again.',
+    desc: 'Weekly and monthly reports delivered automatically to inboxes or Notion, with no manual compiling ever again.',
     tools: ['Google Sheets', 'Looker', 'Notion', 'Slack'],
     accent: '#8B5CF6',
     light: '#F3E8FF',

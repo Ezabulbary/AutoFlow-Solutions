@@ -5,7 +5,7 @@ import DashboardShell from '@/components/dashboard/DashboardShell';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Dashboard — AutoFlow Solutions',
+  title: 'Dashboard | AutoFlow Solutions',
   robots: { index: false },
 };
 

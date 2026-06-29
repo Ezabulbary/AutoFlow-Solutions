@@ -32,6 +32,28 @@ export function AuthProvider({ children }) {
     refresh();
   }, [refresh]);
 
+  // Security: auto-logout after a period of inactivity.
+  useEffect(() => {
+    if (!user) return;
+    const IDLE_MS = 30 * 60 * 1000; // 30 minutes
+    let timer;
+    const onIdle = async () => {
+      await logout();
+      if (typeof window !== 'undefined') window.location.href = '/login?timeout=1';
+    };
+    const reset = () => {
+      clearTimeout(timer);
+      timer = setTimeout(onIdle, IDLE_MS);
+    };
+    const events = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'];
+    events.forEach((e) => window.addEventListener(e, reset, { passive: true }));
+    reset();
+    return () => {
+      clearTimeout(timer);
+      events.forEach((e) => window.removeEventListener(e, reset));
+    };
+  }, [user, logout]);
+
   return (
     <AuthContext.Provider value={{ user, loading, refresh, logout, setUser }}>
       {children}

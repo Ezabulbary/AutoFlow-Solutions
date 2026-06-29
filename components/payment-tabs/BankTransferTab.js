@@ -10,7 +10,7 @@ const BANK_METHODS = [
     icon: '🏦',
     details: [
       { label: 'Bank Name', value: 'Demo International Bank' },
-      { label: 'Account Name', value: 'Md. Ezabul Bari' },
+      { label: 'Account Name', value: 'AutoFlow Solutions' },
       { label: 'Account No.', value: 'DEMO-1234-5678-9012' },
       { label: 'SWIFT / BIC', value: 'DEMOXXXX' },
       { label: 'Currency', value: 'USD / EUR / GBP' },
@@ -85,7 +85,7 @@ export default function BankTransferTab({ plan, amount, onSuccess, showToast }) 
 
       {/* Bank details */}
       <div className={styles.bankDetails}>
-        <div className={styles.bankDetailsTitle}>📋 Payment Details — Copy & Transfer</div>
+        <div className={styles.bankDetailsTitle}>📋 Payment Details: Copy & Transfer</div>
         {bank.details.map(d => (
           <div key={d.label} className={styles.bankDetailRow}>
             <span className={styles.bankDetailLabel}>{d.label}</span>
@@ -122,12 +122,12 @@ export default function BankTransferTab({ plan, amount, onSuccess, showToast }) 
         </div>
 
         <button type="submit" className={styles.payBtn} disabled={sending}>
-          {sending ? <span className={styles.spinner} /> : '📨 Confirm transfer & notify Ezabul'}
+          {sending ? <span className={styles.spinner} /> : '📨 Confirm transfer & notify our team'}
         </button>
       </form>
 
       <p className={styles.note}>
-        After confirming, Ezabul will verify the transfer and start your project within 24 hours.
+        After confirming, our team will verify the transfer and start your project within 24 hours.
       </p>
     </div>
   );

@@ -1,5 +1,5 @@
 import { getCurrentUser } from '@/lib/auth';
-import { resolvePlanAmount } from '@/lib/pricing';
+import { resolveAmount, paymentLabel } from '@/lib/pricing';
 import { createPayment, listPaymentsByUser } from '@/lib/payments';
 import { paymentSchema, safeParse } from '@/lib/validation';
 import { sameOrigin, ok, fail, forbidden } from '@/lib/http';
@@ -22,8 +22,8 @@ export async function POST(req) {
   const { data, error } = safeParse(paymentSchema, body);
   if (error) return fail(error);
 
-  const amount = resolvePlanAmount(data.plan);
-  if (amount === null) return fail('Unknown plan selected.');
+  const amount = resolveAmount(data);
+  if (amount === null) return fail('Invalid plan or amount.');
 
   const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE !== 'false';
   // Bank transfers are always pending manual verification; others settle in demo.
@@ -31,7 +31,7 @@ export async function POST(req) {
 
   const payment = await createPayment({
     userId: user.id,
-    plan: data.plan,
+    plan: paymentLabel(data),
     amount,
     method: data.method,
     status,

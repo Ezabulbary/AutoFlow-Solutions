@@ -88,6 +88,12 @@
   background: linear-gradient(270deg, var(--bg-white), transparent);
 }
 
+/* Defined locally (not just in globals) so CSS Modules scopes it consistently
+   with the .track reference — otherwise the first row stays static. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
 @keyframes marqueeReverse {
   from { transform: translateX(-50%); }
   to { transform: translateX(0); }

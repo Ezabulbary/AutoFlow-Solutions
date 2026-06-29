@@ -1,6 +1,7 @@
 import { Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/components/AuthProvider';
+import ChatWidget from '@/components/ChatWidget';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -18,30 +19,33 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://autoflowsolutions.com'),
-  title: 'AutoFlow Solutions — Business Automation Experts',
+  title: 'AutoFlow Solutions | Business Automation Experts',
   description: 'Custom automation workflows that eliminate manual work and unlock growth for businesses worldwide. Zapier, Make.com, n8n, Stripe, API integrations and more.',
   keywords: 'business automation, workflow automation, Zapier, Make.com, n8n, web scraping, API integration, email automation',
-  authors: [{ name: 'Ezabul Bari' }],
+  authors: [{ name: 'AutoFlow Solutions' }],
   openGraph: {
-    title: 'AutoFlow Solutions — Business Automation Experts',
-    description: 'Save time and scale faster with custom automation built by Ezabul Bari.',
+    title: 'AutoFlow Solutions | Business Automation Experts',
+    description: 'Save time and scale faster with custom automation built by the AutoFlow Solutions team.',
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AutoFlow Solutions — Business Automation Experts',
+    title: 'AutoFlow Solutions | Business Automation Experts',
     description: 'Save time and scale faster with custom automation.',
   },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${plusJakarta.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning className={`${plusJakarta.variable} ${spaceGrotesk.variable}`}>
       {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) inject
           attributes on <body> before React hydrates, causing a harmless mismatch. */}
       <body suppressHydrationWarning>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          {children}
+          <ChatWidget />
+        </AuthProvider>
       </body>
     </html>
   );

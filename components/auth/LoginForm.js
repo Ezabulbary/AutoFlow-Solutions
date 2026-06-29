@@ -17,15 +17,18 @@ const OAUTH_ERRORS = {
 // More specific hint based on which callback stage failed (?reason=...).
 const OAUTH_REASONS = {
   state: 'Security check failed (cookie blocked or expired). Try again in the same browser tab.',
-  token: 'Could not verify with Google — check GOOGLE_CLIENT_SECRET and the redirect URI.',
+  token: 'Could not verify with Google. Check GOOGLE_CLIENT_SECRET and the redirect URI.',
   db: 'Signed in with Google, but saving your account failed (database).',
 };
 
 function oauthMessage(params) {
+  if (params.get('timeout')) return 'You were signed out due to inactivity. Please log in again.';
   const err = params.get('error');
   if (!err) return '';
   const reason = params.get('reason');
-  return (OAUTH_REASONS[reason] || OAUTH_ERRORS[err] || '');
+  const base = OAUTH_REASONS[reason] || OAUTH_ERRORS[err] || '';
+  const detail = params.get('detail');
+  return detail ? `${base} (${detail})` : base;
 }
 
 export default function LoginForm() {

@@ -8,7 +8,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 // connection for hot-reload — these are added ONLY in dev, never in production.
 const csp = [
   "default-src 'self'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://randomuser.me",
   "style-src 'self' 'unsafe-inline'",
   `script-src 'self' 'unsafe-inline' https://js.stripe.com${isDev ? " 'unsafe-eval'" : ''}`,
   "font-src 'self' data:",

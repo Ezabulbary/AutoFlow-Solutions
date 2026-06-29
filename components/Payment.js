@@ -19,7 +19,7 @@ export default function Payment({ onSelectPlan }) {
     <section id="payment">
       <div className="section-inner">
         <span className="section-eyebrow reveal">Payment</span>
-        <h2 className="section-title reveal">Secure, global payment — your way</h2>
+        <h2 className="section-title reveal">Secure, global payment, your way</h2>
         <p className="section-sub reveal">Pay securely from anywhere in the world using your preferred method.</p>
 
         <div className={styles.wrapper}>
@@ -59,7 +59,7 @@ export default function Payment({ onSelectPlan }) {
               className={styles.ctaBtn}
               onClick={() => onSelectPlan('Growth Project', 500)}
             >
-              🚀 Pay now — Choose your plan
+              🚀 Pay now: Choose your plan
             </button>
             <div className={styles.ctaPlanLinks}>
               <button className={styles.planLink} onClick={() => onSelectPlan('One-time Project', 200)}>Starter ($200+)</button>

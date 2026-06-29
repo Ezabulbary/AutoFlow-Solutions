@@ -11,7 +11,10 @@ export default async function AdminPage() {
   if (!actor || !isAdmin(actor.role)) redirect('/dashboard');
 
   const rows = await listUsers();
-  const users = rows.map((u) => ({
+  // Super admin accounts are hidden from everyone — never listed or manageable here.
+  const users = rows
+    .filter((u) => u.role !== 'SUPER_ADMIN')
+    .map((u) => ({
     id: String(u.id),
     name: u.name,
     email: u.email,

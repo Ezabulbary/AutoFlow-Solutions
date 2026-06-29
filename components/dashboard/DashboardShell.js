@@ -15,7 +15,7 @@ export default function DashboardShell({ user, children }) {
 
   const links = [
     { href: '/dashboard', label: 'Overview', icon: '📊' },
-    { href: '/dashboard?tab=billing', label: 'Billing & plans', icon: '💳', match: 'billing' },
+    { href: '/dashboard/billing', label: 'Billing & plans', icon: '💳' },
     { href: '/dashboard/account', label: 'Account', icon: '⚙️' },
   ];
   if (isAdmin) links.push({ href: '/dashboard/admin', label: 'User management', icon: '👥' });
@@ -26,9 +26,7 @@ export default function DashboardShell({ user, children }) {
   }
 
   function isActive(link) {
-    if (link.href === '/dashboard/admin') return pathname === '/dashboard/admin';
-    if (link.href === '/dashboard/account') return pathname === '/dashboard/account';
-    return pathname === '/dashboard';
+    return pathname === link.href;
   }
 
   return (

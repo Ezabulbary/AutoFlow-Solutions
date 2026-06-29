@@ -13,7 +13,7 @@ function formatExpiry(val) {
   return v;
 }
 
-export default function StripeTab({ plan, amount, onSuccess }) {
+export default function StripeTab({ plan, amount, tier = 'low', label, onSuccess }) {
   const [form, setForm] = useState({ name: '', email: '', cardNum: '', expiry: '', cvv: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -38,7 +38,9 @@ export default function StripeTab({ plan, amount, onSuccess }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           plan,
+          tier,
           amount,
+          label,
           email: form.email,
         }),
       });

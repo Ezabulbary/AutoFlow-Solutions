@@ -4,7 +4,7 @@ import ForgotPasswordForm from '@/components/auth/ForgotPasswordForm';
 import styles from '@/components/auth/Auth.module.css';
 
 export const metadata = {
-  title: 'Forgot password — AutoFlow Solutions',
+  title: 'Forgot password | AutoFlow Solutions',
   robots: { index: false },
 };
 

@@ -47,8 +47,8 @@ export default function Hero() {
           </h1>
 
           <p className={styles.sub}>
-            Hi, I'm <strong>Ezabul Bari</strong> — web developer & automation expert. I build custom
-            workflows that eliminate manual work and unlock growth for businesses worldwide.
+            We're <strong>AutoFlow Solutions</strong>, a team of web developers and automation experts.
+            We build custom workflows that eliminate manual work and unlock growth for businesses worldwide.
           </p>
 
           <div className={styles.actions}>

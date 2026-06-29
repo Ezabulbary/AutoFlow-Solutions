@@ -1,58 +1,104 @@
+'use client';
+
+import { useState } from 'react';
 import styles from './Pricing.module.css';
+
+const TIER_LABELS = { low: 'Basic', mid: 'Standard', high: 'Premium' };
 
 const plans = [
   {
     badge: 'Starter',
     name: 'One-time Project',
-    price: '$200',
-    priceSuffix: '– $500',
+    tiers: { low: 200, mid: 350, high: 500 },
+    suffix: '',
     desc: 'For freelancers and small businesses with a single automation need.',
     features: [
       'Single workflow setup',
       '1 platform integration',
       'Video walkthrough included',
       '7 days post-launch support',
-      'Full documentation',
+      'Full documentation handover',
     ],
-    cta: 'Get started',
     featured: false,
-    amount: 200,
   },
   {
     badge: '✦ Most popular',
     name: 'Growth Project',
-    price: '$500',
-    priceSuffix: '– $1,500',
+    tiers: { low: 500, mid: 1000, high: 1500 },
+    suffix: '',
     desc: 'For growing businesses needing multi-step automation systems and integrations.',
     features: [
       'Up to 5 workflows',
       'Multi-platform setup',
       'Error handling & alerts',
       '30 days post-launch support',
-      'Recorded handover session',
+      'Full documentation handover',
     ],
-    cta: 'Get started',
     featured: true,
-    amount: 500,
   },
   {
     badge: 'Retainer',
     name: 'Monthly Partner',
-    price: '$300',
-    priceSuffix: '– $800/mo',
+    tiers: { low: 500, mid: 750, high: 1000 },
+    suffix: '/mo',
     desc: 'Ongoing automation management, new workflows, and priority support every month.',
     features: [
       'Unlimited small task requests',
       'Priority response within 12h',
       'Monthly strategy call',
-      'Proactive workflow monitoring',
+      'Full documentation handover',
       'Cancel anytime',
     ],
-    cta: 'Get started',
     featured: false,
-    amount: 300,
   },
 ];
+
+function PricingCard({ plan, onSelectPlan }) {
+  const [tier, setTier] = useState('low');
+  const price = plan.tiers[tier];
+
+  return (
+    <div className={`${styles.card} ${plan.featured ? styles.featured : ''} reveal reveal-scale`}>
+      <span className={styles.badge}>{plan.badge}</span>
+      <div className={styles.name}>{plan.name}</div>
+
+      <div className={styles.price}>
+        ${price.toLocaleString()}<span>{plan.suffix}</span>
+      </div>
+
+      <div className={styles.tierRow}>
+        {['low', 'mid', 'high'].map((t) => (
+          <button
+            key={t}
+            type="button"
+            className={`${styles.tierBtn} ${tier === t ? styles.tierActive : ''}`}
+            onClick={() => setTier(t)}
+          >
+            {TIER_LABELS[t]}
+          </button>
+        ))}
+      </div>
+
+      <div className={styles.desc}>{plan.desc}</div>
+      <div className={styles.divider} />
+      <ul className={styles.features}>
+        {plan.features.map((f) => (
+          <li key={f} className={styles.feature}>
+            <span className={styles.check}>✓</span>
+            {f}
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        className={`${styles.btn} ${plan.featured ? styles.btnFeatured : ''}`}
+        onClick={() => onSelectPlan(plan.name, tier)}
+      >
+        Get started
+      </button>
+    </div>
+  );
+}
 
 export default function Pricing({ onSelectPlan }) {
   return (
@@ -60,40 +106,25 @@ export default function Pricing({ onSelectPlan }) {
       <div className="section-inner">
         <span className="section-eyebrow reveal">Pricing</span>
         <h2 className="section-title reveal">Transparent pricing, no surprises</h2>
-        <p className="section-sub reveal">Three plans for every stage of business growth. All include delivery documentation and support.</p>
+        <p className="section-sub reveal">
+          Pick a tier for each plan: Basic, Standard, or Premium. Every plan includes full documentation handover and support.
+        </p>
         <div className={styles.grid}>
-          {plans.map((plan, i) => (
-            <div
-              key={i}
-              className={`${styles.card} ${plan.featured ? styles.featured : ''} reveal reveal-scale`}
-              style={{ transitionDelay: `${i * 0.1}s` }}
-            >
-              <span className={styles.badge}>{plan.badge}</span>
-              <div className={styles.name}>{plan.name}</div>
-              <div className={styles.price}>
-                {plan.price} <span>{plan.priceSuffix}</span>
-              </div>
-              <div className={styles.desc}>{plan.desc}</div>
-              <div className={styles.divider} />
-              <ul className={styles.features}>
-                {plan.features.map(f => (
-                  <li key={f} className={styles.feature}>
-                    <span className={styles.check}>✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <button
-                className={`${styles.btn} ${plan.featured ? styles.btnFeatured : ''}`}
-                onClick={() => onSelectPlan(plan.name, plan.amount)}
-              >
-                {plan.cta}
-              </button>
-            </div>
+          {plans.map((plan) => (
+            <PricingCard key={plan.name} plan={plan} onSelectPlan={onSelectPlan} />
           ))}
         </div>
+
+        <div className={`${styles.policy} reveal`}>
+          <strong>Cancel anytime.</strong> If we&apos;ve already started work, a percentage is deducted for the work
+          completed and the remainder is refunded. If no work has begun yet, you get a full refund.
+        </div>
+
         <p className={styles.note}>
-          💡 Custom enterprise projects? <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className={styles.noteLink}>Contact me for a quote →</button>
+          💡 Need something custom?{' '}
+          <button type="button" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className={styles.noteLink}>
+            Contact us for a quote →
+          </button>
         </p>
       </div>
     </section>

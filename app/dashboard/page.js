@@ -1,13 +1,12 @@
+import Link from 'next/link';
 import { getCurrentUser } from '@/lib/auth';
 import { listPaymentsByUser } from '@/lib/payments';
-import BillingPanel from '@/components/dashboard/BillingPanel';
 import PaymentHistory from '@/components/dashboard/PaymentHistory';
 import styles from '@/components/dashboard/Dashboard.module.css';
 
 export const dynamic = 'force-dynamic';
 
-export default async function DashboardPage({ searchParams }) {
-  const sp = await searchParams;
+export default async function DashboardPage() {
   const user = await getCurrentUser();
   const payments = await listPaymentsByUser(user.id);
 
@@ -17,7 +16,7 @@ export default async function DashboardPage({ searchParams }) {
   return (
     <div>
       <h1 className={styles.pageTitle}>Welcome back, {user.name.split(' ')[0]} 👋</h1>
-      <p className={styles.pageSub}>Manage your plans and review your payment history.</p>
+      <p className={styles.pageSub}>Here&apos;s an overview of your account activity.</p>
 
       <div className={styles.statGrid}>
         <div className={styles.statCard}>
@@ -35,13 +34,10 @@ export default async function DashboardPage({ searchParams }) {
       </div>
 
       <section className={styles.sectionCard}>
-        <h2 className={styles.sectionHead}>Choose a plan</h2>
-        <p className={styles.sectionDesc}>Pick a plan to pay securely. Your purchase is added to your history.</p>
-        <BillingPanel preselected={sp?.plan || null} />
-      </section>
-
-      <section className={styles.sectionCard}>
-        <h2 className={styles.sectionHead}>Payment history</h2>
+        <div className={styles.sectionHeadRow}>
+          <h2 className={styles.sectionHead}>Recent payment history</h2>
+          <Link href="/dashboard/billing" className={styles.sectionAction}>Buy a plan →</Link>
+        </div>
         <p className={styles.sectionDesc}>Every transaction tied to your account.</p>
         <PaymentHistory payments={payments} />
       </section>

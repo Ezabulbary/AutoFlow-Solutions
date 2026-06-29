@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './Footer.module.css';
 import { CALENDLY_URL } from '@/lib/site';
 
@@ -9,7 +11,6 @@ const serviceLinks = [
 const companyLinks = [
   { label: 'How it works', id: 'how' },
   { label: 'Pricing', id: 'pricing' },
-  { label: 'Payment', id: 'payment' },
   { label: 'Testimonials', id: 'testimonials' },
   { label: 'FAQ', id: 'faq' },
 ];
@@ -30,7 +31,7 @@ export default function Footer() {
               <img src="/AutoFlow Brand/autoflow-mark-white.svg" alt="AutoFlow Logo" width="28" height="24" className={styles.footerLogo} />
               <div className={styles.logoText}>Auto<span>Flow</span> Solutions</div>
             </div>
-            <p>Web development & automation expertise serving clients in 30+ countries. Built on trust, transparency, and results.</p>
+            <p>A team delivering web development & automation expertise to clients in 30+ countries. Built on trust, transparency, and results.</p>
             <div className={styles.socials}>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={styles.social}>🔗</a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className={styles.social}>🐦</a>
@@ -63,7 +64,7 @@ export default function Footer() {
           <div className={styles.col}>
             <h4>Contact</h4>
             <ul>
-              <li><a href="mailto:ezabul@autoflowsolutions.com">📧 Send email</a></li>
+              <li><a href="mailto:hello@autoflowsolutions.com">📧 Send email</a></li>
               <li><a href="https://wa.me/" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a></li>
               <li><a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">📅 Book a call</a></li>
               <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a></li>
@@ -73,7 +74,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          <p>© {year} AutoFlow Solutions by Ezabul Bari. All rights reserved.</p>
+          <p>© {year} AutoFlow Solutions. All rights reserved.</p>
           <div className={styles.badges}>
             <span className={styles.badge}>🌍 30+ Countries</span>
             <span className={styles.badge}>⚡ 150+ Workflows</span>

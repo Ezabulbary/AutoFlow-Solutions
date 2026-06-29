@@ -4,7 +4,7 @@ import ResetPasswordForm from '@/components/auth/ResetPasswordForm';
 import styles from '@/components/auth/Auth.module.css';
 
 export const metadata = {
-  title: 'Reset password — AutoFlow Solutions',
+  title: 'Reset password | AutoFlow Solutions',
   robots: { index: false },
 };
 

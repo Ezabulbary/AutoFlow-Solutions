@@ -9,7 +9,7 @@ const CRYPTO_OPTIONS = [
   { id: 'btc', label: 'Bitcoin (BTC)', icon: '₿', address: 'bc1demo1234567890abcdef1234567890abcdef1234', network: 'Bitcoin' },
 ];
 
-export default function CryptoTab({ plan, amount, onSuccess }) {
+export default function CryptoTab({ plan, amount, tier = 'low', label, onSuccess }) {
   const [selected, setSelected] = useState('usdt');
   const [copied, setCopied] = useState(false);
   const [confirming, setConfirming] = useState(false);
@@ -45,7 +45,7 @@ export default function CryptoTab({ plan, amount, onSuccess }) {
       const res = await fetch('/api/coinbase', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan, amount, email }),
+        body: JSON.stringify({ plan, tier, amount, label, email }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -88,7 +88,7 @@ export default function CryptoTab({ plan, amount, onSuccess }) {
       </form>
 
       <div style={{ textAlign: 'center', color: 'var(--text-faint)', fontSize: '11px', margin: '12px 0 6px 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        — OR PAY MANUALLY TO WALLET —
+        OR PAY MANUALLY TO WALLET
       </div>
 
       {/* Coin selector */}

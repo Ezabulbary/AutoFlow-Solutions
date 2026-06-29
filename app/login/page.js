@@ -4,7 +4,7 @@ import LoginForm from '@/components/auth/LoginForm';
 import styles from '@/components/auth/Auth.module.css';
 
 export const metadata = {
-  title: 'Log in — AutoFlow Solutions',
+  title: 'Log in | AutoFlow Solutions',
   robots: { index: false },
 };
 

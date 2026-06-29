@@ -17,16 +17,22 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  function scrollTo(id) {
+  function go(link) {
     setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (link.route) {
+      router.push(link.route);
+      return;
+    }
+    const el = document.getElementById(link.id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    else window.location.href = `/#${link.id}`; // section lives on the landing page
   }
 
   const links = [
     { id: 'how', label: 'How it works' },
     { id: 'services', label: 'Services' },
     { id: 'pricing', label: 'Pricing' },
-    { id: 'payment', label: 'Payment' },
+    { id: 'about', label: 'About', route: '/about' },
     { id: 'faq', label: 'FAQ' },
     { id: 'contact', label: 'Contact' },
   ];
@@ -44,7 +50,7 @@ export default function Nav() {
         <ul className={styles.links}>
           {links.map(l => (
             <li key={l.id}>
-              <button type="button" className={styles.link} onClick={() => scrollTo(l.id)}>
+              <button type="button" className={styles.link} onClick={() => go(l)}>
                 {l.label}
               </button>
             </li>
@@ -53,7 +59,10 @@ export default function Nav() {
 
         <div className={styles.navRight}>
           {!loading && user ? (
-            <button type="button" className={styles.cta} onClick={() => router.push('/dashboard')}>
+            <button type="button" className={styles.dashBtn} onClick={() => router.push('/dashboard')}>
+              <span className={styles.navAvatar}>
+                {(user.name || user.email || 'U').charAt(0).toUpperCase()}
+              </span>
               Dashboard
             </button>
           ) : (
@@ -83,11 +92,11 @@ export default function Nav() {
       <div className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}>
         <div className={styles.drawerInner}>
           {links.map(l => (
-            <button type="button" key={l.id} className={styles.drawerLink} onClick={() => scrollTo(l.id)}>
+            <button type="button" key={l.id} className={styles.drawerLink} onClick={() => go(l)}>
               {l.label}
             </button>
           ))}
-          <button type="button" className={styles.drawerCta} onClick={() => scrollTo('pricing')}>
+          <button type="button" className={styles.drawerCta} onClick={() => go({ id: 'pricing' })}>
             🚀 Get started
           </button>
         </div>

@@ -6,7 +6,6 @@ import Marquee from '@/components/Marquee';
 import HowItWorks from '@/components/HowItWorks';
 import Services from '@/components/Services';
 import Pricing from '@/components/Pricing';
-import Payment from '@/components/Payment';
 import Testimonials from '@/components/Testimonials';
 import Faq from '@/components/Faq';
 import Contact from '@/components/Contact';
@@ -28,9 +27,9 @@ export default function Home() {
   }
 
   // Payment requires an account. Send guests to register (then back to checkout),
-  // and logged-in users straight to their dashboard with the plan preselected.
-  function selectPlan(plan) {
-    const target = `/dashboard?plan=${encodeURIComponent(plan)}`;
+  // and logged-in users straight to billing with the plan + tier preselected.
+  function selectPlan(plan, tier = 'low') {
+    const target = `/dashboard/billing?plan=${encodeURIComponent(plan)}&tier=${tier}`;
     if (user) router.push(target);
     else router.push(`/register?next=${encodeURIComponent(target)}`);
   }
@@ -45,7 +44,6 @@ export default function Home() {
         <HowItWorks />
         <Services />
         <Pricing onSelectPlan={selectPlan} />
-        <Payment onSelectPlan={selectPlan} />
         <Testimonials />
         <Faq />
         <Contact showToast={showToast} />
