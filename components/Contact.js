@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import styles from './Contact.module.css';
+import { CALENDLY_URL } from '@/lib/site';
 
 const services = [
   'Business process automation',
@@ -55,6 +56,9 @@ export default function Contact({ showToast }) {
               <div className={styles.item}><span>🌍</span> Available worldwide — 30+ countries</div>
               <div className={styles.item}><span>📅</span> Free 30-min discovery call available</div>
             </div>
+            <a className={styles.bookCall} href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+              📅 Book a free call
+            </a>
           </div>
 
           {/* Form */}

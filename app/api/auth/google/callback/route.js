@@ -23,11 +23,23 @@ export async function GET(req) {
 
   // CSRF: state must match the value we set before redirecting to Google.
   if (!code || !state || !savedState || state !== savedState) {
-    return redirectTo(origin, '/login?error=google');
+    console.error('Google OAuth: state/code check failed', {
+      hasCode: !!code, hasState: !!state, hasSavedState: !!savedState, match: state === savedState,
+    });
+    return redirectTo(origin, '/login?error=google&reason=state');
   }
 
+  // Stage 1: exchange the code with Google for the user's profile.
+  let profile;
   try {
-    const profile = await exchangeCodeForProfile({ code, origin });
+    profile = await exchangeCodeForProfile({ code, origin });
+  } catch (err) {
+    console.error('Google OAuth: token/profile exchange failed:', err);
+    return redirectTo(origin, '/login?error=google&reason=token');
+  }
+
+  // Stage 2: find or create the account and start a session.
+  try {
     const role = profile.email.toLowerCase() === SUPER_ADMIN_EMAIL ? ROLES.SUPER_ADMIN : ROLES.USER;
     const user = await findOrCreateGoogleUser({
       email: profile.email,
@@ -46,7 +58,7 @@ export async function GET(req) {
     res.cookies.set('g_next', '', { path: '/', maxAge: 0 });
     return res;
   } catch (err) {
-    console.error('Google OAuth error:', err);
-    return redirectTo(origin, '/login?error=google');
+    console.error('Google OAuth: account/session step failed:', err);
+    return redirectTo(origin, '/login?error=google&reason=db');
   }
 }

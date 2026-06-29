@@ -2,6 +2,7 @@
 
 import styles from './Hero.module.css';
 import CountUp from './CountUp';
+import { CALENDLY_URL } from '@/lib/site';
 
 export default function Hero() {
   const stats = [
@@ -57,9 +58,9 @@ export default function Hero() {
               </svg>
               View plans &amp; pricing
             </button>
-            <button className="btn-secondary" onClick={() => scrollTo('contact')}>
+            <a className="btn-secondary" href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
               💬 Book a free call
-            </button>
+            </a>
           </div>
 
           <div className={styles.stats}>

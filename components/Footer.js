@@ -1,4 +1,5 @@
 import styles from './Footer.module.css';
+import { CALENDLY_URL } from '@/lib/site';
 
 const serviceLinks = [
   'Business automation', 'Email automation', 'Web scraping',
@@ -64,7 +65,7 @@ export default function Footer() {
             <ul>
               <li><a href="mailto:ezabul@autoflowsolutions.com">📧 Send email</a></li>
               <li><a href="https://wa.me/" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a></li>
-              <li><button type="button" onClick={() => scrollTo('contact')}>📅 Book a call</button></li>
+              <li><a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">📅 Book a call</a></li>
               <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a></li>
               <li><a href="https://upwork.com" target="_blank" rel="noopener noreferrer">💼 Upwork Profile</a></li>
             </ul>
